@@ -1,69 +1,37 @@
-describe("Myrapname.com", () => {
+﻿describe("Myrapname.com", () => {
 
-    it("should exist", async () => {
+    beforeAll(async () => {
+        // Load blog page 
         await page.goto("https://www.myrapname.com");
     })
-})
-
-describe("Myrapname.com", () => {
-
-    it("input fields should exist", async () => {
-
-        await page.goto("https://www.myrapname.com");
-
-        const inputNameField = page.waitForSelector('text=firstname', { visible: true, timeout: 10000 })
-        expect(inputNameField).not.toBeNull();
-
-        //const inputInitialField = page.waitForSelector('text=lastinitial')
-        //expect(inputInitialField).not.toBeNull();
-
-        //const checkBoxField = await page.waitForSelector('checkbox=shorten')
-        //expect(checkBoxField).not.toBeNull();
-
-    })
-})
-
-describe("Myrapname.com", () => {
 
     it("Validate that you can input data into the fields", async () => {
-        
-         await page.goto("https://www.myrapname.com");
-        /** 
-         const inSelector = 'input[name="fistname"]';
-         page.waitForSelector(inSelector, { visible: true, timeout: 30000 });
-         page.fill(inSelector, "Peter");
-        
-         const inputTextField = page.$("text='firstname'");
-         console.log(`✅ ${inputTextField}`);
-         expect(inputTextField).not.toBeNull()*/
 
+        var firstNameSetTo = "Aetna-CVS";
 
-        page.click('input[name="fistname"]');
-        page.type("input[name=fullname]", "Peter");
+        await page.fill("input[name=firstname]", firstNameSetTo);
 
-        const inputTextField = page.$("text='firstname'");
-        console.log(`✅ ${inputTextField}`);
-        expect(inputTextField).not.toBeNull()
+        const firstnameValue = await page.$eval("input[name=firstname]", el => el.value);
+
+        //Checking if the value in the Input Field is equal to the string entered  
+        await expect(firstnameValue).toBe(firstNameSetTo);
+
+        console.log(firstnameValue);
 
     })
+
+
+    /** it("Design a negative scenario that involves the input fields", async () => {
+
+        var firstNameSetTo = "Checking if the First Name field can take more than 24 characters";
+
+        await page.fill("input[name=firstname]", firstNameSetTo);
+
+        const firstnameValue = await page.$eval("input[name=firstname]", el => el.value);
+
+        //expecting to fail since the input string is longer than 24 charatcters
+        await expect(firstnameValue).toBe(firstNameSetTo);
+    })*/
+
 })
 
-describe("Myrapname.com", () => {
-
-    it("Design a negative scenario that involves the input fields", async () => {
-
-        await page.goto("https://www.myrapname.com");
-
-
-    })
-})
-
-describe("Myrapname.com", () => {
-
-    it("Submit a name for a male with a nickname and validate that a new name has been prepended to the list", async () => {
-
-        await page.goto("https://www.myrapname.com");
-
-
-    })
-})
